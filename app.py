@@ -17,6 +17,8 @@ def draw(x_data, y_data, title, x_label, y_label, interval=0.2):
         axes.relim()
         axes.autoscale_view()
 
+        print(x_data[i], y_data[i])
+
         plt.draw()
         plt.pause(interval)
 
