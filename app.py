@@ -1,12 +1,26 @@
 import matplotlib.pyplot as plt
 import csv
 
+def draw(x_data, y_data, title, x_label, y_label, interval=0.2):
+    plt.ion()
+    _, axes = plt.subplots()
+    axes.set_title(title)
+    axes.set_xlabel(x_label)
+    axes.set_ylabel(y_label)
 
-def draw(x_data, y_data, title, x_label, y_label):
-    plt.plot(x_data, y_data, marker="o")
-    plt.title(title)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+    line, = axes.plot([], [], marker="o")
+    plt.show()
+
+    for i in range(len(x_data)):
+        line.set_xdata(x_data[:i + 1])
+        line.set_ydata(y_data[:i + 1])
+        axes.relim()
+        axes.autoscale_view()
+
+        plt.draw()
+        plt.pause(interval)
+
+    plt.ioff()
     plt.show()
 
 def read_data_from_csv(file_name):
