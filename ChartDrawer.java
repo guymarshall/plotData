@@ -1,5 +1,4 @@
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,22 +7,14 @@ import java.awt.image.BufferedImage;
 public class ChartDrawer {
     public static void draw(ChartData chartData) {
         try {
-            ArrayList<String> xDataStr = chartData.xData;
-            ArrayList<String> yDataStr = chartData.yData;
+            int count = chartData.xData.size();
 
-            int count = xDataStr.size();
-
-            if (count != yDataStr.size()) {
+            if (count != chartData.yData.size()) {
                 throw new RuntimeException("X and Y data sets must be identical in length");
             }
 
-            double[] xData = new double[count];
-            double[] yData = new double[count];
-
-            for (int i = 0; i < count; i++) {
-                xData[i] = Double.parseDouble(xDataStr.get(i));
-                yData[i] = Double.parseDouble(yDataStr.get(i));
-            }
+            double[] xData = chartData.xData.stream().mapToDouble(Double::parseDouble).toArray();
+            double[] yData = chartData.yData.stream().mapToDouble(Double::parseDouble).toArray();
 
             double minX = xData[0], maxX = xData[0];
             double minY = yData[0], maxY = yData[0];
