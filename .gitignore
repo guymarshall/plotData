@@ -1,6 +1,5 @@
-.idea/
 .vscode/
-*.iml
-__pycache__/
-.venv/
+*.class
+*.jar
 data.csv
+output.png
