@@ -43,11 +43,19 @@ def read_data_from_csv(file_name):
 
 def main():
     file_name = "data.csv"
+
     chart_title = file_name
 
-    x_data, y_data, x_label, y_label = read_data_from_csv(file_name)
+    try:
+        x_data, y_data, x_label, y_label = read_data_from_csv(file_name)
 
-    draw(x_data, y_data, chart_title, x_label, y_label)
+        draw(x_data, y_data, chart_title, x_label, y_label)
+    except FileNotFoundError:
+        print("File does not exist")
+        exit(1)
+    except PermissionError:
+        print("Failed to read file: incorrect permission")
+        exit(1)
 
 
 if __name__ == "__main__":
