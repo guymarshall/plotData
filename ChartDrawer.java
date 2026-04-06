@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ChartDrawer {
-    public static void draw(ChartData chartData) {
+    public static void draw(ChartData chartData, boolean useLogScale) {
         try {
             int count = chartData.xData.size();
 
@@ -43,8 +43,20 @@ public class ChartDrawer {
             graphics.setColor(Color.RED);
 
             for (int i = 0; i < count; i++) {
-                double xPercent = (xData[i] - minX) / (maxX - minX);
-                double yPercent = (yData[i] - minY) / (maxY - minY);
+                double xPercent = 0.0;
+                double yPercent = 0.0;
+                if (useLogScale) {
+                    double logMinX = Math.log10(minX);
+                    double logMaxX = Math.log10(maxX);
+                    xPercent = (Math.log10(xData[i]) - logMinX) / (logMaxX - logMinX);
+
+                    double logMinY = Math.log10(minY);
+                    double logMaxY = Math.log10(maxY);
+                    yPercent = (Math.log10(yData[i]) - logMinY) / (logMaxY - logMinY);
+                } else {
+                    xPercent = (xData[i] - minX) / (maxX - minX);
+                    yPercent = (yData[i] - minY) / (maxY - minY);
+                }
 
                 int x = (int) (padding + xPercent * (width - 2 * padding));
                 int y = (int) (height - padding - yPercent * (height - 2 * padding));
