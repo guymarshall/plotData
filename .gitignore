@@ -1,5 +1,9 @@
-.vscode/
-*.class
-*.jar
-data.csv
-output.png
+/.idea
+/.vscode
+*.iml
+
+/__pycache__
+/.venv
+
+*.csv
+*.png
